@@ -6,7 +6,7 @@ Recently, I've received a comment on an older post about [message de-duplication
 
 You know how the instinct to blame something "obvious" kicks in first? The portal is already <strike>horrible</strike> not the best. Blame it for another issue and move on. And that's exactly what I've done. Except it feels wrong to cast the blame on something that might not be at fault and make a scapegoat of it.
 
-Anything unknown is somewhat magical. Yet there's no magic. Something else had to be an issue. Here's what we have:
+Anything unknown is somewhat magical. Yet there's no magic. Something else had to be an issue. Just to recap what the issue is, here’s what we have:
 
  - A queue is created with native de-duplication enabled.
  - It's partitioned.

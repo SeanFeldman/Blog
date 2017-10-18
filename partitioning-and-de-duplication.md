@@ -2,7 +2,7 @@
 
 Recently, I've received a comment on an older post about [message de-duplication](https://weblogs.asp.net/sfeldman/bend-message-deduplication-on-azure-service-bus-to-your-will) that was somewhat peculiar. 
 
-> An important note here - watch out for partitioning. I basically ran the same code, but deduping did not work and I couldn't understand why. Turns out that because I created the q manually through the portal with partitioning enabled, and it screwed up the deduping.
+> An important note here - watch out for partitioning. I basically ran the same code, but deduping did not work and I couldn't understand why. Turns out that because I created the queue manually through the portal with partitioning enabled, and it screwed up the deduping.
 
 To recap, here's what we have:
 

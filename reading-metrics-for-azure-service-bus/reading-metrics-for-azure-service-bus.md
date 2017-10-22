@@ -1,5 +1,5 @@
-I always found it interesting that most of us start counting earlier than we can read or spell out our own names.
-Almost as if we are predispositioned to count first. Yet, numbers can become very difficult later in the game.
+I always found it interesting that most of us start counting earlier than we can read or spell our own names.
+Almost as if we are predispositioned to count first. Yet numbers can become very difficult later in the game.
 
 Azure Service Bus client seems to follow the same footsteps in its evolution. With the "old school" client [(`WindowsAzure.ServiceBus`)][old-client] reading message counts was a trivial exercise.
 
@@ -14,13 +14,15 @@ var details = queueDescription.MessageCountDetails;
 // details.TransferMessageCount
 ```
 
-While it looked simple and innocent, the operation of reading message counts is quite expensive and challenging on the broker side. Imagine a partitioned entity with 16 sections. To get message count, it would require to perform a query on all 16 brokers and aggregate the results to be served back to the client. Now imagine a "clueless" and "stubborn" client that just keeps pondering server side to get the counts every few seconds. You guessed it right, it's not ideal. Message counts were not designed to be queried frequently, and such an action is an abuse.
+While it looked simple and innocent, the operation of reading message counts is quite expensive and challenging on the broker side. Imagine a partitioned entity with 16 sections. To get message count, it would perform a query on all 16 brokers and aggregate the results to be served back to the client. Now imagine a "clueless" and "stubborn" client that just keeps pounding the server to get the counts every few seconds. You guessed right, it's not ideal. Message counts were not designed to be queried frequently, and such an action is an abuse.
 
 And that's why it's going to be deprecated from the new client [`Microsoft.Azure.ServiceBus`][new-client]. Full stop. What do you mean it will be gone?! How will it be possible to get message counts? Fear not. There's a way. Eventually.
 
 But first, let's look at a bigger picture.
 
-Metrics are not cheap. They require compute, and based on what we've already seen, it could be an extensive amount of compute for the curious ones. The approach new client is taking is rather than allowing reading of the counts directly, to have Service Bus to send data to [Azure Monitor service][monitor-service]. In order to retrieve that information, you'd be able to either use the portal
+## Metrics aren't cheap
+
+Metrics require computational time, and based on what we've already seen, it could be an extensive amount of time for the curious ones. The approach the new client is taking is: rather than allowing reading of the counts directly, to have Service Bus send data to the [Azure Monitor service][monitor-service]. In order to retrieve that information, you'd be able to either use the portal
 
 ![monitor-portal]
 
@@ -61,7 +63,7 @@ In this example, code requested `IncomingRequests` metric.
 
 (Nuget packages needed for the snippet are `Microsoft.Azure.Management.Monitor` and `Microsoft.Rest.ClientRuntime.Azure.Authentication`)
 
-The time-series data received will look as following (shortened):
+The time-series data received will look as following (truncated):
 
 ```txt
 {
@@ -169,6 +171,8 @@ The time-series data received will look as following (shortened):
 }
 ```
 
+## Today's metrics
+
 The metrics you can already access today are all the metrics listed under Monitor service. Remove spaces and "(Preview)" and you got a metric name.
 
 | **Description** | **Metric** |
@@ -192,7 +196,9 @@ var metricDefinitions = await metricsClient.MetricDefinitions.ListAsync(resource
 
 **Note**: at this point, only namespace is an acceptable resource.
 
-What about entities and message counts? How to get those numbers?
+## Tomorrow's metrics
+
+What about entities and message counts? How do you get those numbers?
 
 They are coming. Hopefully soon. Until then, review how you use message counts in your code and plan to migrate. Happy counting!
 

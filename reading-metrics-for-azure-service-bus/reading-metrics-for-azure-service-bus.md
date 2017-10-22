@@ -57,7 +57,11 @@ static async Task<MonitorClient> Authenticate(string tenantId, string clientId, 
 }
 ```
 
-In this example, code requested `IncomingRequests` metric. The time-series data received will look as following (shortened):
+In this example, code requested `IncomingRequests` metric. 
+
+(Nuget packages needed for the snippet are `Microsoft.Azure.Management.Monitor` and `Microsoft.Rest.ClientRuntime.Azure.Authentication`)
+
+The time-series data received will look as following (shortened):
 
 ```txt
 {
